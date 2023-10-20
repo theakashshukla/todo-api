@@ -1,0 +1,34 @@
+version: "3"
+services:
+  # Node.js Application
+  app:
+    image: node:14 # Use an appropriate Node.js version
+    container_name: node_app
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000" # Adjust the ports as needed
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - POSTGRES_URL=postgres://user:pass@db:5432/todo_db
+      # Add any other environment variables you need
+    depends_on:
+      - db
+
+  # PostgreSQL Database
+  db:
+    image: postgres:13 # Use an appropriate PostgreSQL version
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: todo_db
+    ports:
+      - "5432:5432" # Adjust the ports as needed
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
