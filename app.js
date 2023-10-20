@@ -5,12 +5,10 @@ const dotenv = require("dotenv");
 const sequelize = require("./config/database");
 const User = require("./models/user");
 
-// const cors = require("cors");
+
 // Passport setup for JWT authentication
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
-// const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
 
 dotenv.config();
 const app = express();
@@ -64,7 +62,7 @@ app.use(
   passport.authenticate("jwt", { session: false }),
   userRoutes
 );
-
+// Todo routes (protected by JWT)
 const todoRoutes = require("./routes/todos");
 app.use(
   "/api/todos",
